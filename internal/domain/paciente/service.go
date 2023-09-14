@@ -1,5 +1,29 @@
 package paciente
 
+import (
+	"context"
+	"errors"
+	"log"
+)
+
+type service struct {
+	repository Repository
+}
+
+type Service interface {
+	Create(ctx context.Context, requestPaciente RequestPaciente) (Paciente, error)
+	GetByID(ctx context.Context, id int) (Paciente, error)
+	Update(ctx context.Context, requestPaciente RequestPaciente, id int) (Paciente, error)
+	Delete(ctx context.Context, id int) error
+}
+
+// NewService creates a new product service.
+func NewService(repository Repository) Service {
+	return &service{
+		repository: repository,
+	}
+}
+
 func (s *service) Create(ctx context.Context, requestPaciente RequestPaciente) (Paciente, error) {
 	paciente := requestToPaciente(requestPaciente)
 	response, err := s.repository.Create(ctx, paciente)
@@ -9,6 +33,17 @@ func (s *service) Create(ctx context.Context, requestPaciente RequestPaciente) (
 	}
 
 	return response, nil
+}
+
+// GetByID returns a paciente by its ID.
+func (s *service) GetByID(ctx context.Context, id int) (Paciente, error) {
+	paciente, err := s.repository.GetByID(ctx, id)
+	if err != nil {
+		log.Println("log de error en service de paciente", err.Error())
+		return Paciente{}, errors.New("error en servicio. Metodo GetByID")
+	}
+
+	return paciente, nil
 }
 
 func requestToPaciente(requestPaciente RequestPaciente) Paciente {

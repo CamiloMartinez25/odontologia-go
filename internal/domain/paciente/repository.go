@@ -48,3 +48,25 @@ func (r *repository) Create(ctx context.Context, paciente Paciente) (Paciente, e
 
 	return paciente, nil
 }
+
+
+// GetByID returns a paciente by its ID.
+func (r *repository) GetByID(ctx context.Context, id int) (Paciente, error) {
+	row := r.db.QueryRow(QueryGetProductById, id)
+
+	var paciente Paciente
+	err := row.Scan(
+		&paciente.ID,
+		&paciente.Nombre,
+		&paciente.Apellido,
+		&paciente.Domicilio,
+		&paciente.DNI,
+		&paciente.FechaAlta,
+	)
+
+	if err != nil {
+		return Paciente{}, err
+	}
+
+	return paciente, nil
+}
