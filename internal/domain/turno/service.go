@@ -7,6 +7,11 @@ import (
 	"log"
 )
 
+
+var (
+	ErrEmptyList = errors.New("the list is empty")
+)
+
 type service struct {
 	repository Repository
 }
@@ -29,4 +34,12 @@ func TurnoSefvice(repository Repository) Service {
 }
 
 // GetByPacienteID returns a list of turnos according to paciente's ID.
-func 
+func (s *service) GetByPacienteID(ctx context.Context) ([]Turno, error) {
+	turnos, err := s.repository.GetByPacienteID(ctx)
+	if err != nil {
+		log.Println("Error on turnos service", err.Error())
+		return []Turno{}, ErrEmptyList
+	}
+
+	return turnos, nil
+}
