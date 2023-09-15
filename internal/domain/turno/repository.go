@@ -16,6 +16,41 @@ func TurnoRepository(db *sql.DB) Repository {
 	}
 }
 
+// GetAll returns all turnos.
+func (r *repository) GetAll(ctx context.Context) ([]Turno, error) {
+	rows, err := r.db.Query(QueryGetAllTurnos)
+	if err != nil {
+		return []Turno{}, err
+	}
+
+	defer rows.Close()
+
+	var turnos []Turno
+
+	for rows.Next() {
+		var turno Turno
+		err := rows.Scan(
+			&turno.ID,
+			&turno.Paciente,
+			&turno.Odontologo,
+			&turno.FechaHora,
+			&turno.Descripcion,
+		)
+		if err != nil {
+			return []Turno{}, err
+		}
+
+		turnos = append(turnos, turno)
+	}
+
+	if err := rows.Err(); err != nil {
+		return []Turno{}, err
+	}
+
+	return turnos, nil
+}
+
+
 // GetByPacienteID returns a list of turnos according to paciente's ID.
 func (r *repository) GetByPacienteID(ctx context.Context, id int) ([]Turno, error) {
 	rows, err := r.db.Query(QueryGetTurnByPacienteId, id)
