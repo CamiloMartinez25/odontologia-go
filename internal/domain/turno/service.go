@@ -2,7 +2,12 @@ package turno
 
 import (
 	"context"
+	"errors"
 	"log"
+)
+
+var (
+	ErrEmptyList = errors.New("the list is empty")
 )
 
 type service struct {
@@ -38,3 +43,12 @@ func (s *service) GetAll(ctx context.Context) ([]Turno, error) {
 }
 
 // GetByPacienteID returns a list of turnos according to paciente's ID.
+func (s *service) GetByPacienteID(ctx context.Context) ([]Turno, error) {
+	turnos, err := s.repository.GetByPacienteID(ctx)
+	if err != nil {
+		log.Println("Error on turnos service", err.Error())
+		return []Turno{}, ErrEmptyList
+	}
+
+	return turnos, nil
+}
