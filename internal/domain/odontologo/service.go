@@ -26,6 +26,17 @@ func NewService(repository Repository) Service {
 	}
 }
 
+func (s *service) Create(ctx context.Context, requestOdontologo RequestOdontologo) (Odontologo, error) {
+	odontologo := requestToOdontologo(requestOdontologo)
+	response, err := s.repository.Create(ctx, odontologo)
+	if err != nil {
+		log.Println("Error en service Odontologo: Método Create")
+		return Odontologo{}, errors.New("Error en service Odontologo: Método Create")
+	}
+
+	return response, nil
+}
+
 // Update updates an odontologo.
 func (s *service) Update(ctx context.Context, requestOdontologo RequestOdontologo, id int) (Odontologo, error) {
 	odontologo := requestToOdontologo(requestOdontologo)
