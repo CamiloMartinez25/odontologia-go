@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/CamiloMartinez25/odontologia-go/internal/domain/paciente"
 	"github.com/CamiloMartinez25/odontologia-go/core/web"
+	"github.com/CamiloMartinez25/odontologia-go/internal/domain/paciente"
 	"github.com/gin-gonic/gin"
 )
 
@@ -53,7 +53,6 @@ func (c *Controlador) Create() gin.HandlerFunc {
 
 	}
 }
-
 
 // paciente godoc
 // @Summary paciente example
@@ -158,5 +157,45 @@ func (c *Controlador) Delete() gin.HandlerFunc {
 		web.Success(ctx, http.StatusOK, gin.H{
 			"mensaje": "paciente eliminado",
 		})
+	}
+}
+
+// Paciente godoc
+// @Summary paciente example
+// @Description UpdateSubjet paciente
+// @Tags paciente
+// @Accept json
+// @Produce json
+// @Success 200 {object} web.response
+// @Failure 400 {object} web.errorResponse
+// @Failure 500 {object} web.errorResponse
+// @Router /pacientes/:id [patch]
+func (c *Controlador) UpdateSubject() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+		var request paciente.RequestUpdatePacienteSubject
+		errBind := ctx.Bind(&request)
+		if errBind != nil {
+			web.Error(ctx, http.StatusBadRequest, "%s", "bad request")
+			return
+		}
+
+		id := ctx.Param("id")
+		idInt, err := strconv.Atoi(id)
+		if err != nil {
+			web.Error(ctx, http.StatusBadRequest, "%s", "bad request param")
+			return
+		}
+
+		pacie, err := c.service.UpdateSubjet(ctx, idInt, request)
+		if err != nil {
+			web.Error(ctx, http.StatusInternalServerError, "%s", "internal server error")
+			return
+		}
+
+		web.Succses(ctx, http.StatusOK, gin.H{
+			"data": pacie,
+		})
+
 	}
 }

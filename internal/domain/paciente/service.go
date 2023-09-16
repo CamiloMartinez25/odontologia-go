@@ -13,8 +13,9 @@ type service struct {
 type Service interface {
 	Create(ctx context.Context, requestPaciente RequestPaciente) (Paciente, error)
 	GetByID(ctx context.Context, id int) (Paciente, error)
-	Update(ctx context.Context, requestPaciente RequestPaciente, id int) (Paciente, error)
-	Delete(ctx context.Context, id int) error
+	//Update(ctx context.Context, requestPaciente RequestPaciente, id int) (Paciente, error)
+	//Delete(ctx context.Context, id int) error
+	UpdateSubjet(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error)
 }
 
 // NewService creates a new product service.
@@ -55,4 +56,13 @@ func requestToPaciente(requestPaciente RequestPaciente) Paciente {
 	paciente.FechaAlta = requestPaciente.FechaAlta
 
 	return paciente
+}
+
+func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error) {
+	response, err := s.repository.UpdateSubject(ctx, id, request)
+	if err != nil {
+		log.Println("log de error en service de paciente", err.Error())
+		return Paciente{}, errors.New("error en servicio. Metodo UpdateSubjet")
+	}
+	return response, nil
 }
