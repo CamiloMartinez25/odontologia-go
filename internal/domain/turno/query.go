@@ -1,15 +1,17 @@
 package turno
 
 var (
-	QueryInsertTurn = `INSERT INTO my_db.Turns(paciente,odontologo,fechaHora,descripcion)
+	QueryInsertTurn = `INSERT INTO my_db.Turns(DNI_paciente,Matricula_odontologo,Fecha_Hora,Descripcion)
 	VALUES(?,?,?,?)`
-	QueryGetAllTurns = `SELECT id, paciente,odontologo,fechaHora,descripcion 
+	QueryInsertTurnByPaciente = `INSERT INTO my_db.Turns(DNI_paciente,Matricula_odontologo)
+	VALUES(?,?)`
+	QueryGetAllTurns = `SELECT ID, DNI_paciente,Matricula_odontologo,Fecha_Hora,Descripcion 
 	FROM my_db.Turns`
-	QueryDeleteTurn  = `DELETE FROM my_db.Turns WHERE id = ?`
-	QueryGetTurnById = `SELECT id, paciente,odontologo,fechaHora,descripcion
-	FROM my_db.Turns WHERE id = ?`
-	QueryGetTurnByPacienteId = `SELECT id, paciente,odontologo,fechaHora,descripcion
-	FROM my_db.Turns WHERE paciente = ?`
-	QueryUpdateTurn = `UPDATE my_db.Turns SET paciente = ?, odontologo = ?,  fechaHora = ?, descripcion = ?
-	WHERE id = ?`
+	QueryDeleteTurn  = `DELETE FROM my_db.Turns WHERE ID = ?`
+	QueryGetTurnByID = `SELECT ID, DNI_paciente,Matricula_odontologo,Fecha_Hora,Descripcion
+	FROM my_db.Turns WHERE ID = ?`
+	QueryGetTurnByPacienteID = `SELECT ID, DNI_paciente,Matricula_odontologo,Fecha_Hora,Descripcion
+	FROM my_db.Turns WHERE DNI_paciente = ?`
+	QueryUpdateTurn = `UPDATE my_db.Turns SET DNI_paciente = ?, Matricula_odontologo = ?,  Fecha_Hora = ?, Descripcion = ?
+	WHERE ID = ?`
 )

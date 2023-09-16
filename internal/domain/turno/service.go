@@ -27,6 +27,3 @@ func TurnoSefvice(repository Repository) Service {
 		repository: repository,
 	}
 }
-
-// GetByPacienteID returns a list of turnos according to paciente's ID.
-func 
