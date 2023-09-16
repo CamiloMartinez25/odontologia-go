@@ -14,8 +14,8 @@ type Service interface {
 	Create(ctx context.Context, requestPaciente RequestPaciente) (Paciente, error)
 	GetByID(ctx context.Context, id int) (Paciente, error)
 	//Update(ctx context.Context, requestPaciente RequestPaciente, id int) (Paciente, error)
-	//Delete(ctx context.Context, id int) error
-	UpdateSubjet(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error)
+	Delete(ctx context.Context, id int) error
+	UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error)
 }
 
 // NewService creates a new product service.
@@ -65,4 +65,14 @@ func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpda
 		return Paciente{}, errors.New("error en servicio. Metodo UpdateSubjet")
 	}
 	return response, nil
+}
+
+func (s *service) Delete(ctx context.Context, id int) error {
+	err := s.repository.Delete(ctx, id)
+	if err != nil {
+		log.Println("log de error borrado de paciente", err.Error())
+		return errors.New("error en servicio. Metodo Delete")
+	}
+
+	return nil
 }

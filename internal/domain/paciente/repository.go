@@ -14,7 +14,7 @@ type Repository interface {
 	//GetAll(ctx context.Context) ([]Paciente, error)
 	GetByID(ctx context.Context, id int) (Paciente, error)
 	//Update(ctx context.Context, paciente Paciente) (Paciente, error)
-	//Delete(ctx context.Context, id int) error
+	Delete(ctx context.Context, id int) error
 	UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error)
 }
 
@@ -111,4 +111,22 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 	}
 
 	return pacienteActualizado, nil
+}
+
+func (r *repository) Delete(ctx context.Context, id int) error {
+	result, err := r.db.Exec(QueryDeletePaciente, id)
+	if err != nil {
+		return nil, err
+	}
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected < 1 {
+		return ErrNotFound
+	}
+
+	return nil
+
 }
