@@ -11,11 +11,12 @@ type service struct {
 }
 
 type Service interface {
-	Create(ctx context.Context, requestOdontologo RequestOdontologo) (Odontologo, error)
-	GetAll(ctx context.Context) ([]Odontologo, error)
-	GetByID(ctx context.Context, id int) (Odontologo, error)
+	//Create(ctx context.Context, requestOdontologo RequestOdontologo) (Odontologo, error)
+	//GetAll(ctx context.Context) ([]Odontologo, error)
+	//GetByID(ctx context.Context, id int) (Odontologo, error)
 	Update(ctx context.Context, requestOdontologo RequestOdontologo, id int) (Odontologo, error)
-	Delete(ctx context.Context, id int) error
+	//Delete(ctx context.Context, id int) error
+	UpdateName(ctx context.Context, id int, nombreNuevo string) (Odontologo, error)
 }
 
 // NewService creates a new odontologo service.
@@ -25,10 +26,9 @@ func NewService(repository Repository) Service {
 	}
 }
 
-
 // Update updates an odontologo.
 func (s *service) Update(ctx context.Context, requestOdontologo RequestOdontologo, id int) (Odontologo, error) {
-	odontologo := requestToodontologo(requestOdontologo)
+	odontologo := requestToOdontologo(requestOdontologo)
 	odontologo.ID = id
 	response, err := s.repository.Update(ctx, odontologo)
 	if err != nil {
@@ -41,9 +41,19 @@ func (s *service) Update(ctx context.Context, requestOdontologo RequestOdontolog
 
 func requestToOdontologo(requestOdontologo RequestOdontologo) Odontologo {
 	var odontologo Odontologo
-	odontologo.Nombre = requestodOdontologo.Nombre
-	odontologo.Apellido = requestodOdontologo.Apellido
-	odontologo.Matricula = requestodOdontologo.Matricula
+	odontologo.Nombre = requestOdontologo.Nombre
+	odontologo.Apellido = requestOdontologo.Apellido
+	odontologo.Matricula = requestOdontologo.Matricula
 
 	return odontologo
+}
+
+func (s *service) UpdateName(ctx context.Context, id int, nombreNuevo string) (Odontologo, error) {
+
+	response, err := s.repository.UpdateName(ctx, id, nombreNuevo)
+	if err != nil {
+		log.Println("log de error en service de odontologo", err.Error())
+		return Odontologo{}, errors.New("error en servicio. Metodo UpdateName")
+	}
+	return response, nil
 }
