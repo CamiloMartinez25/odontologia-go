@@ -1,22 +1,25 @@
 package turno
 
+<<<<<<< HEAD
 import (
 	"context"
 	"log"
 )
 
+=======
+>>>>>>> 0b2bb4bc17a287cc958f8d565c58a77ef40f4f23
 type service struct {
 	repository Repository
 }
 
 type Service interface {
-	Create(ctx context.Context, RequestTurno turno) (Turno, error)
-	CreateByPaciente(ctx context.Context, RequestTurnoByPaciente turno) (Turno, error)
-	GetByID(ctx context.Context, id int) (Turno, error)
-	GetByPacienteID(ctx context.Context, id int) ([]Turno, error)
-	Update(ctx context.Context, RequestTurno turno, id int) (Turno, error)
-	UpdatePatch(ctx context.Context, RequestTurno turno, id int) (Turno, error)
-	Delete(ctx context.Context, id int) error
+	// Create(ctx context.Context, RequestTurno turno) (Turno, error)
+	// CreateByPaciente(ctx context.Context, RequestTurnoByPaciente turno) (Turno, error)
+	// GetByID(ctx context.Context, id int) (Turno, error)
+	// GetByPacienteID(ctx context.Context, id int) ([]Turno, error)
+	// Update(ctx context.Context, RequestTurno turno, id int) (Turno, error)
+	// UpdatePatch(ctx context.Context, RequestTurno turno, id int) (Turno, error)
+	// Delete(ctx context.Context, id int) error
 }
 
 // TurnoService creates a new turno service.
