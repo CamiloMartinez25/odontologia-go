@@ -49,6 +49,7 @@ func (r *repository) GetAll(ctx context.Context) ([]Turno, error) {
 
 	return turnos, nil
 }
+
 // Update updates an turno.
 func (r *repository) Update(ctx context.Context, turno Turno) (Turno, error) {
 	statement, err := r.db.Prepare(QueryUpdateTurno)
@@ -100,7 +101,7 @@ func (r *repository) GetByPacienteID(ctx context.Context, id int) ([]Turno, erro
 			&turno.Paciente,
 			&turno.Odontologo,
 			&turno.FechaHora,
-			&turno.Descripcion
+			&turno.Descripcion,
 		)
 		if err != nil {
 			return []Turno{}, err
@@ -110,7 +111,7 @@ func (r *repository) GetByPacienteID(ctx context.Context, id int) ([]Turno, erro
 	}
 
 	if err := rows.Err(); err != nil {
-		return []Turnos{}, err
+		return []Turno{}, err
 	}
 
 	return turnos, nil

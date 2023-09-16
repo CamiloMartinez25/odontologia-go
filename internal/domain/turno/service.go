@@ -15,13 +15,13 @@ type service struct {
 }
 
 type Service interface {
-	Create(ctx context.Context, RequestTurno turno) (Turno, error)
-	CreateByPaciente(ctx context.Context, RequestTurnoByPaciente turno) (Turno, error)
-	GetByID(ctx context.Context, id int) (Turno, error)
+	//Create(ctx context.Context, RequestTurno turno) (Turno, error)
+	//CreateByPaciente(ctx context.Context, RequestTurnoByPaciente turno) (Turno, error)
+	//GetByID(ctx context.Context, id int) (Turno, error)
 	GetByPacienteID(ctx context.Context, id int) ([]Turno, error)
-	Update(ctx context.Context, RequestTurno turno, id int) (Turno, error)
-	UpdatePatch(ctx context.Context, RequestTurno turno, id int) (Turno, error)
-	Delete(ctx context.Context, id int) error
+	//Update(ctx context.Context, requestTurno RequestTurno , id int) (Turno, error)
+	//UpdatePatch(ctx context.Context, RequestTurno turno, id int) (Turno, error)
+	//Delete(ctx context.Context, id int) error
 }
 
 // TurnoService creates a new turno service.
@@ -66,8 +66,8 @@ func requestToTurno(requestTurno RequestTurno) Turno {
 }
 
 // GetByPacienteID returns a list of turnos according to paciente's ID.
-func (s *service) GetByPacienteID(ctx context.Context) ([]Turno, error) {
-	turnos, err := s.repository.GetByPacienteID(ctx)
+func (s *service) GetByPacienteID(ctx context.Context, id int) ([]Turno, error) {
+	turnos, err := s.repository.GetByPacienteID(ctx, id)
 	if err != nil {
 		log.Println("Error on turnos service", err.Error())
 		return []Turno{}, ErrEmptyList

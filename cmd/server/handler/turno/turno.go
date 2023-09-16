@@ -1,10 +1,19 @@
 package turno
 
+import (
+	"net/http"
+	"strconv"
+
+	"github.com/CamiloMartinez25/odontologia-go/core/web"
+	"github.com/CamiloMartinez25/odontologia-go/internal/domain/turno"
+	"github.com/gin-gonic/gin"
+)
+
 type Controlador struct {
 	service turno.Service
 }
 
-func NewControladorTurno(service turno.TurnoService) *Controlador {
+func NewControladorTurno(service turno.Service) *Controlador {
 	return &Controlador{
 		service: service,
 	}
@@ -118,6 +127,26 @@ func (c *Controlador) Delete() gin.HandlerFunc {
 
 		web.Success(ctx, http.StatusOK, gin.H{
 			"mensaje": "turno eliminado",
+		})
+	}
+}
+
+func (c *Controlador) GetByPacienteID() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id, err := strconv.Atoi(ctx.Param("id"))
+		if err != nil {
+			web.Error(ctx, http.StatusBadRequest, "id invalido")
+			return
+		}
+
+		turnos, err := c.service.GetByPacienteID(ctx, id)
+		if err != nil {
+			web.Error(ctx, http.StatusInternalServerError, "internal server error")
+			return
+		}
+
+		web.Succes(ctx, http.StatusOK, gin.H{
+			"data": turnos,
 		})
 	}
 }
