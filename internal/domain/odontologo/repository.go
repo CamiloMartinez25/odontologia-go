@@ -16,7 +16,7 @@ type Repository interface {
 	GetByID(ctx context.Context, id int) (Odontologo, error)
 	Update(ctx context.Context, odontologo Odontologo) (Odontologo, error)
 	//Delete(ctx context.Context, id int) error
-	UpdateName(ctx context.Context, id int, nombreNuevo string) (Odontologo, error)
+	UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error)
 }
 
 type repository struct {
@@ -61,9 +61,10 @@ func (r *repository) Update(ctx context.Context, odontologo Odontologo) (Odontol
 	return odontologo, nil
 }
 
-func (r *repository) UpdateName(ctx context.Context, id int, nombreNuevo string) (Odontologo, error) {
 
-	statement, err := r.db.Prepare(QueryUpdateOdontologoNombre)
+func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error) {
+
+	statement, err := r.db.Prepare(QueryUpdateOdontologoNombre + request.key + " = ? WHERE ID = ?")
 	if err != nil {
 		return Odontologo{}, err
 	}
@@ -71,7 +72,7 @@ func (r *repository) UpdateName(ctx context.Context, id int, nombreNuevo string)
 	defer statement.Close()
 
 	result, err := statement.Exec(
-		nombreNuevo,
+		request.value,
 		id,
 	)
 

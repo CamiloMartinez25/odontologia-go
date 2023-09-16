@@ -48,9 +48,9 @@ func requestToOdontologo(requestOdontologo RequestOdontologo) Odontologo {
 	return odontologo
 }
 
-func (s *service) UpdateName(ctx context.Context, id int, nombreNuevo string) (Odontologo, error) {
+func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error) {
 
-	response, err := s.repository.UpdateName(ctx, id, nombreNuevo)
+	response, err := s.repository.UpdateSubject(ctx, id, request)
 	if err != nil {
 		log.Println("log de error en service de odontologo", err.Error())
 		return Odontologo{}, errors.New("error en servicio. Metodo UpdateName")

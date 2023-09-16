@@ -13,6 +13,7 @@ type RequestOdontologo struct {
 	Matricula string `json:"matricula"`
 }
 
-type RequestUpdateOdntologoName struct {
-	Nombre string `json:"nombre"`
+type RequestUpdateOdontologoSubject struct {
+	key string `query:"key"`
+	value string `query:"value"`
 }
