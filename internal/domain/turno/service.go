@@ -22,11 +22,8 @@ type Service interface {
 }
 
 // TurnoService creates a new turno service.
-func TurnoSefvice(repository Repository) Service {
+func TurnoService(repository Repository) Service {
 	return &service{
 		repository: repository,
 	}
 }
-
-// GetByPacienteID returns a list of turnos according to paciente's ID.
-func 
