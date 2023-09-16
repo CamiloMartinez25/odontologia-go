@@ -1,5 +1,15 @@
 package paciente
 
+import (
+	"context"
+	"errors"
+	"log"
+)
+
+type service struct {
+	repository Repository
+}
+
 func (s *service) Create(ctx context.Context, requestPaciente RequestPaciente) (Paciente, error) {
 	paciente := requestToPaciente(requestPaciente)
 	response, err := s.repository.Create(ctx, paciente)

@@ -24,3 +24,23 @@ func NewService(repository Repository) Service {
 		repository: repository,
 	}
 }
+
+func (s *service) Create(ctx context.Context, requestOdontologo RequestOdontologo) (Odontologo, error) {
+	odontologo := requestToOdontologo(requestOdotologo)
+	response, err := s.repository.Create(ctx, odontologo)
+	if err != nil {
+		log.Println("Error en service odontologo: Método Create")
+		return Odontologo{}, errors.New("Error en service odontologo: Método Create")
+	}
+
+	return response, nil
+}
+
+func requestToOdontologo(requestOdontologo RequestOdontologo) Odontologo {
+	var odontologo Odontologo
+	odontologo.Nombre = requestOdontologo.Nombre
+	odontologo.Apellido = requestOdontologo.Apellido
+	odontologo.Matricula = requestOdontologo.Matricula
+
+	return odontologo
+}
