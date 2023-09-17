@@ -1,13 +1,10 @@
 package turno
 
-<<<<<<< HEAD
 import (
 	"context"
 	"log"
 )
 
-=======
->>>>>>> 0b2bb4bc17a287cc958f8d565c58a77ef40f4f23
 type service struct {
 	repository Repository
 }
