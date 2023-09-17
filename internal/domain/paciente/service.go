@@ -47,17 +47,6 @@ func (s *service) GetByID(ctx context.Context, id int) (Paciente, error) {
 	return paciente, nil
 }
 
-func requestToPaciente(requestPaciente RequestPaciente) Paciente {
-	var paciente Paciente
-	paciente.Nombre = requestPaciente.Nombre
-	paciente.Apellido = requestPaciente.Apellido
-	paciente.Domicilio = requestPaciente.Domicilio
-	paciente.DNI = requestPaciente.DNI
-	paciente.FechaAlta = requestPaciente.FechaAlta
-
-	return paciente
-}
-
 func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error) {
 	response, err := s.repository.UpdateSubject(ctx, id, request)
 	if err != nil {
@@ -75,4 +64,15 @@ func (s *service) Delete(ctx context.Context, id int) error {
 	}
 
 	return nil
+}
+
+func requestToPaciente(requestPaciente RequestPaciente) Paciente {
+	var paciente Paciente
+	paciente.Nombre = requestPaciente.Nombre
+	paciente.Apellido = requestPaciente.Apellido
+	paciente.Domicilio = requestPaciente.Domicilio
+	paciente.DNI = requestPaciente.DNI
+	paciente.FechaAlta = requestPaciente.FechaAlta
+
+	return paciente
 }
