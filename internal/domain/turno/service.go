@@ -20,7 +20,7 @@ type Service interface {
 	//GetByID(ctx context.Context, id int) (Turno, error)
 	GetByPacienteID(ctx context.Context, id int) ([]Turno, error)
 	Update(ctx context.Context, requestTurno RequestTurno , id int) (Turno, error)
-	//UpdatePatch(ctx context.Context, RequestTurno turno, id int) (Turno, error)
+	UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject,) (Turno, error)
 	//Delete(ctx context.Context, id int) error
 }
 
@@ -54,6 +54,16 @@ func (s *service) GetByPacienteID(ctx context.Context, id int) ([]Turno, error) 
 	}
 
 	return turnos, nil
+}
+
+func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject  ) (Turno, error) {
+
+	response, err := s.repository.UpdateSubject(ctx, id, request)
+	if err != nil {
+		log.Println("log de error en service de turnos", err.Error())
+		return Turno{}, errors.New("error en servicio. Metodo UpdateName")
+	}
+	return response, nil
 }
 
 func requestToTurno(requestTurno RequestTurno) Turno {

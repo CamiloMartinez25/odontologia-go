@@ -10,9 +10,11 @@ type repository struct {
 }
 type Repository interface {
 	//Create(ctx context.Context, truno Turno) (Turno, error)
-	//GetAll(ctx context.Context) ([]Turno, error)
+	GetAll(ctx context.Context) ([]Turno, error)
 	//GetByID(ctx context.Context, id int) (Turno, error)
-	//Update(ctx context.Context, turno Turno) (Turno, error)
+	GetByPacienteID(ctx context.Context, id int) (Turno, error)
+	Update(ctx context.Context, turno Turno) (Turno, error)
+	UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Odontologo, error)
 	//Delete(ctx context.Context, id int) error
 
 }
@@ -123,4 +125,39 @@ func (r *repository) GetByPacienteID(ctx context.Context, id int) ([]Turno, erro
 	}
 
 	return turnos, nil
+}
+
+func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Turno, error) {
+
+	statement, err := r.db.Prepare(QueryUpdateTurnoSubject + request.key + " = ? WHERE ID = ?")
+	if err != nil {
+		return Turno{}, err
+	}
+
+	defer statement.Close()
+
+	result, err := statement.Exec(
+		request.value,
+		id,
+	)
+
+	if err != nil {
+		return Turno{}, err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return Turno{}, err
+	}
+
+	if rowsAffected < 1 {
+		return Turno{}, ErrNotFound
+	}
+
+	turnoActualizado, err := r.GetByID(ctx, id)
+	if err != nil {
+		return Turno{}, err
+	}
+
+	return turnoActualizado, nil
 }

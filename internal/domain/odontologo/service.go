@@ -50,14 +50,6 @@ func (s *service) Update(ctx context.Context, requestOdontologo RequestOdontolog
 	return response, nil
 }
 
-func requestToOdontologo(requestOdontologo RequestOdontologo) Odontologo {
-	var odontologo Odontologo
-	odontologo.Nombre = requestOdontologo.Nombre
-	odontologo.Apellido = requestOdontologo.Apellido
-	odontologo.Matricula = requestOdontologo.Matricula
-
-	return odontologo
-}
 
 func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error) {
 
@@ -67,4 +59,13 @@ func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpda
 		return Odontologo{}, errors.New("error en servicio. Metodo UpdateName")
 	}
 	return response, nil
+}
+
+func requestToOdontologo(requestOdontologo RequestOdontologo) Odontologo {
+	var odontologo Odontologo
+	odontologo.Nombre = requestOdontologo.Nombre
+	odontologo.Apellido = requestOdontologo.Apellido
+	odontologo.Matricula = requestOdontologo.Matricula
+
+	return odontologo
 }
