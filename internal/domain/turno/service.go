@@ -21,7 +21,7 @@ type Service interface {
 	GetByPacienteID(ctx context.Context, id int) ([]Turno, error)
 	Update(ctx context.Context, requestTurno RequestTurno , id int) (Turno, error)
 	UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject,) (Turno, error)
-	//Delete(ctx context.Context, id int) error
+	Delete(ctx context.Context, id int) error
 }
 
 // TurnoService creates a new turno service.
@@ -68,6 +68,7 @@ func (s *service) GetByPacienteID(ctx context.Context, id int) ([]Turno, error) 
 	return turnos, nil
 }
 
+// Update actualiza algún campo del turno 
 func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject  ) (Turno, error) {
 
 	response, err := s.repository.UpdateSubject(ctx, id, request)
@@ -76,6 +77,17 @@ func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpda
 		return Turno{}, errors.New("error en servicio. Metodo UpdateName")
 	}
 	return response, nil
+}
+
+// Delete elimina el turno
+func (s *service) Delete(ctx context.Context, id int) error {
+	err := s.repository.Delete(ctx, id)
+	if err != nil {
+		log.Println("Error borrado de turno", err.Error())
+		return errors.New("Error en service de Turnos: Metodo Delete")
+	}
+
+	return nil
 }
 
 func requestToTurno(requestTurno RequestTurno) Turno {

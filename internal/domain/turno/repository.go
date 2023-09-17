@@ -15,7 +15,7 @@ type Repository interface {
 	GetByPacienteID(ctx context.Context, id int) (Turno, error)
 	Update(ctx context.Context, turno Turno) (Turno, error)
 	UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Odontologo, error)
-	//Delete(ctx context.Context, id int) error
+	Delete(ctx context.Context, id int) error
 
 }
 
@@ -159,6 +159,7 @@ func (r *repository) GetByPacienteID(ctx context.Context, id int) ([]Turno, erro
 	return turnos, nil
 }
 
+// Update actualiza algún campo del turno
 func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Turno, error) {
 
 	statement, err := r.db.Prepare(QueryUpdateTurnoSubject + request.key + " = ? WHERE ID = ?")
@@ -192,4 +193,24 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 	}
 
 	return turnoActualizado, nil
+}
+
+// Delete elimina el turno 
+func (r *repository) Delete(ctx context.Context, id int) error {
+	result, err := r.db.Exec(QueryDeleteTurn, id)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected < 1 {
+		return ErrNotFound
+	}
+
+	return nil
+
 }
