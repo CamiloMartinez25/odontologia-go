@@ -9,7 +9,7 @@ type repository struct {
 	db *sql.DB
 }
 type Repository interface {
-	//Create(ctx context.Context, truno Turno) (Turno, error)
+	Create(ctx context.Context, turno Turno) (Turno, error)
 	GetAll(ctx context.Context) ([]Turno, error)
 	//GetByID(ctx context.Context, id int) (Turno, error)
 	GetByPacienteID(ctx context.Context, id int) (Turno, error)
@@ -24,6 +24,38 @@ func TurnoRepository(db *sql.DB) Repository {
 	return &repository{
 		db: db,
 	}
+}
+
+//Create crea un turno 
+func (r *repository) Create(ctx context.Context, turno Turno) (Turno, error) {
+
+	statement, err := r.db.Prepare(QueryInsertTurn)
+
+	if err != nil {
+		return Turno{}, ErrStatement
+	}
+
+	defer statement.Close()
+
+	result, err := statement.Exec(
+		turno.Paciente,
+		turno.Odontologo,
+		turno.FechaHora,
+		turno.Descripcion
+	)
+
+	if err != nil {
+		return Turno{}, ErrExec
+	}
+
+	lastId, err := result.LastInsertId()
+	if err != nil {
+		return Turno{}, ErrLastId
+	}
+
+	turno.ID = int(lastId)
+
+	return turno, nil
 }
 
 // GetAll returns all turnos.

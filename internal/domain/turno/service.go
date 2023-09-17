@@ -15,7 +15,7 @@ type service struct {
 }
 
 type Service interface {
-	//Create(ctx context.Context, RequestTurno turno) (Turno, error)
+	Create(ctx context.Context, RequestTurno turno) (Turno, error)
 	//CreateByPaciente(ctx context.Context, RequestTurnoByPaciente turno) (Turno, error)
 	//GetByID(ctx context.Context, id int) (Turno, error)
 	GetByPacienteID(ctx context.Context, id int) ([]Turno, error)
@@ -29,6 +29,18 @@ func TurnoService(repository Repository) Service {
 	return &service{
 		repository: repository,
 	}
+}
+
+// Create crea un turno
+func (s *service) Create(ctx context.Context, requestTurno RequestTurno) (Turno, error) {
+	turno := requestToTurno(requestTurno)
+	response, err := s.repository.Create(ctx, turno)
+	if err != nil {
+		log.Println("Error en service Turno: Método Create")
+		return Turno{}, errors.New("Error en service Turno: Método Create")
+	}
+
+	return response, nil
 }
 
 // Update updates an turno.
