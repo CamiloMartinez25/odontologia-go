@@ -61,7 +61,7 @@ func (r *repository) GetAll(ctx context.Context) ([]Turno, error) {
 
 // GetByPacienteID returns a list of turnos according to paciente's ID.
 func (r *repository) GetByPacienteID(ctx context.Context, id int) ([]Turno, error) {
-	rows, err := r.db.Query(QueryGetTurnByPacienteId, id)
+	rows, err := r.db.Query(QueryGetTurnByPacienteID, id)
 
 	if err != nil {
 		return []Turno{}, err

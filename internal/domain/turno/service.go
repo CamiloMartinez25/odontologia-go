@@ -38,3 +38,4 @@ func (s *service) GetAll(ctx context.Context) ([]Turno, error) {
 }
 
 // GetByPacienteID returns a list of turnos according to paciente's ID.
+
