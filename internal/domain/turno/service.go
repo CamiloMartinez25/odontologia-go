@@ -25,6 +25,8 @@ func TurnoService(repository Repository) Service {
 		repository: repository,
 	}
 }
+<<<<<<< HEAD
+=======
 
 // GetAll returns all turnos.
 func (s *service) GetAll(ctx context.Context) ([]Turno, error) {
@@ -39,3 +41,4 @@ func (s *service) GetAll(ctx context.Context) ([]Turno, error) {
 
 // GetByPacienteID returns a list of turnos according to paciente's ID.
 
+>>>>>>> main

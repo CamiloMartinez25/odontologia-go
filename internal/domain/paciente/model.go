@@ -18,3 +18,8 @@ type RequestPaciente struct {
 	DNI       int       `json:"dni"`
 	FechaAlta time.Time `json:"fecha_alta"`
 }
+
+type RequestUpdatePacienteSubject struct {
+	key   string `query:"key"`
+	value string `query:"value"`
+}
