@@ -11,11 +11,11 @@ var (
 )
 
 type Repository interface {
-	//Create(ctx context.Context, odontologo Odontologo) (Odontologo, error)
+	Create(ctx context.Context, odontologo Odontologo) (Odontologo, error)
 	//GetAll(ctx context.Context) ([]Odontologo, error)
 	GetByID(ctx context.Context, id int) (Odontologo, error)
 	Update(ctx context.Context, odontologo Odontologo) (Odontologo, error)
-	//Delete(ctx context.Context, id int) error
+	Delete(ctx context.Context, id int) error
 	UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error)
 }
 
@@ -60,6 +60,26 @@ func (r *repository) Create(ctx context.Context, odontologo Odontologo) (Odontol
 	return odontologo, nil
 }
 
+// GetByID retorna un odontologo por ID
+func (r *repository) GetByID(ctx context.Context, id int) (Odontologo, error) {
+	row := r.db.QueryRow(QueryGetOdontologoById, id)
+
+	var odontologo Odontologo
+	err := row.Scan(
+		&odontologo.ID,
+		&odontologo.Name,
+		&odontologo.Apellido
+		&odontologo.Matricula
+	
+	)
+
+	if err != nil {
+		return Odontologo{}, err
+	}
+
+	return odontologo, nil
+}
+
 // Update updates an odontologo.
 func (r *repository) Update(ctx context.Context, odontologo Odontologo) (Odontologo, error) {
 	statement, err := r.db.Prepare(QueryUpdateOdontologo)
@@ -92,9 +112,11 @@ func (r *repository) Update(ctx context.Context, odontologo Odontologo) (Odontol
 	return odontologo, nil
 }
 
+
+// Update actualiza alguno de los campos de odontologo
 func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error) {
 
-	statement, err := r.db.Prepare(QueryUpdateOdontologoNombre + request.key + " = ? WHERE ID = ?")
+	statement, err := r.db.Prepare(QueryUpdateOdontologoSubject + request.key + " = ? WHERE ID = ?")
 	if err != nil {
 		return Odontologo{}, err
 	}
@@ -127,4 +149,22 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 	return odontologoActualizado, nil
 }
 
-func (r *repository) GetByID(ctx context.Context, id int) (Odontologo, error)
+// Delete elimina odontologo
+func (r *repository) Delete(ctx context.Context, id int) error {
+	result, err := r.db.Exec(QueryDeleteOdontologo, id)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected < 1 {
+		return ErrNotFound
+	}
+
+	return nil
+
+}
