@@ -47,6 +47,19 @@ func (s *service) GetByID(ctx context.Context, id int) (Paciente, error) {
 	return paciente, nil
 }
 
+// Update updates an paciente.
+func (s *service) Update(ctx context.Context, requestPaciente RequestPaciente, id int) (Paciente, error) {
+	paciente := requestToPaciente(requestPaciente)
+	paciente.ID = id
+	response, err := s.repository.Update(ctx, paciente)
+	if err != nil {
+		log.Println("log de error en service de paciente", err.Error())
+		return Paciente{}, errors.New("error en servicio. Metodo Update")
+	}
+
+	return response, nil
+}
+
 func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error) {
 	response, err := s.repository.UpdateSubject(ctx, id, request)
 	if err != nil {

@@ -79,6 +79,38 @@ func (r *repository) GetByID(ctx context.Context, id int) (Paciente, error) {
 	return paciente, nil
 }
 
+func (r *repository) Update(ctx context.Context, paciente Paciente) (Paciente, error) {
+	statement, err := r.db.Prepare(QueryUpdatePaciente)
+	if err != nil {
+		return Paciente{}, err
+	}
+
+	defer statement.Close()
+
+	result, err := statement.Exec(
+		paciente.Nombre,
+		paciente.Apellido,
+		paciente.Domicilio,
+		paciente.DNI,
+		paciente.FechaAlta,
+	)
+
+	if err != nil {
+		return Paciente{}, err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return Paciente{}, err
+	}
+
+	if rowsAffected < 1 {
+		return Paciente{}, ErrNotFound
+	}
+
+	return paciente, nil
+}
+
 func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error) {
 	statement, err := r.db.Prepare(QueryUpdateSubject + request.key + " = ? WHERE ID = ?")
 	if err != nil {
