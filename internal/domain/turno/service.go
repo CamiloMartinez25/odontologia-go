@@ -19,8 +19,8 @@ type Service interface {
 	//CreateByPaciente(ctx context.Context, RequestTurnoByPaciente turno) (Turno, error)
 	//GetByID(ctx context.Context, id int) (Turno, error)
 	GetByPacienteID(ctx context.Context, id int) ([]Turno, error)
-	Update(ctx context.Context, requestTurno RequestTurno , id int) (Turno, error)
-	UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject,) (Turno, error)
+	Update(ctx context.Context, requestTurno RequestTurno, id int) (Turno, error)
+	UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Turno, error)
 	Delete(ctx context.Context, id int) error
 }
 
@@ -56,7 +56,6 @@ func (s *service) Update(ctx context.Context, requestTurno RequestTurno, id int)
 	return response, nil
 }
 
-
 // GetByPacienteID returns a list of turnos according to paciente's ID.
 func (s *service) GetByPacienteID(ctx context.Context, id int) ([]Turno, error) {
 	turnos, err := s.repository.GetByPacienteID(ctx, id)
@@ -68,8 +67,8 @@ func (s *service) GetByPacienteID(ctx context.Context, id int) ([]Turno, error) 
 	return turnos, nil
 }
 
-// Update actualiza algún campo del turno 
-func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject  ) (Turno, error) {
+// Update actualiza algún campo del turno
+func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Turno, error) {
 
 	response, err := s.repository.UpdateSubject(ctx, id, request)
 	if err != nil {
