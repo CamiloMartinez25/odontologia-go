@@ -31,14 +31,14 @@ func (c *Controlador) Create() gin.HandlerFunc {
 			return
 		}
 
-		turno, err := c.service.Create(ctx, request)
+		turn, err := c.service.Create(ctx, request)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "%s", "internal server error")
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, gin.H{
-			"data": turno,
+			"data": turn,
 		})
 
 	}
@@ -99,14 +99,14 @@ func (c *Controlador) Update() gin.HandlerFunc {
 			return
 		}
 
-		turno, err := c.service.Update(ctx, request, idInt)
+		turn, err := c.service.Update(ctx, request, idInt)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "%s", "internal server error")
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, gin.H{
-			"data": turno,
+			"data": turn,
 		})
 
 	}
@@ -148,5 +148,45 @@ func (c *Controlador) GetByPacienteID() gin.HandlerFunc {
 		web.Succes(ctx, http.StatusOK, gin.H{
 			"data": turnos,
 		})
+	}
+}
+
+// turno godoc
+// @Summary turno example
+// @Description Update Any Subject on turno
+// @Tags turno
+// @Accept json
+// @Produce json
+// @Success 200 {object} web.response
+// @Failure 400 {object} web.errorResponse
+// @Failure 500 {object} web.errorResponse
+// @Router /turnos/:id [patch]
+func (c *Controlador) UpdateSubject() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+		var request turno.RequestUpdateTurnoSubject
+		errBind := ctx.Bind(&request)
+		if errBind != nil {
+			web.Error(ctx, http.StatusBadRequest, "%s", "bad request")
+			return
+		}
+
+		id := ctx.Param("id")
+		idInt, err := strconv.Atoi(id)
+		if err != nil {
+			web.Error(ctx, http.StatusBadRequest, "%s", "bad request param")
+			return
+		}
+
+		turn, err := c.service.UpdateSubject(ctx, idInt, request)
+		if err != nil {
+			web.Error(ctx, http.StatusInternalServerError, "%s", "internal server error")
+			return
+		}
+
+		web.Succses(ctx, http.StatusOK, gin.H{
+			"data": turn,
+		})
+
 	}
 }

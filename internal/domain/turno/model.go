@@ -23,3 +23,7 @@ type RequestTurnoByPaciente struct {
 	Odontologo  string `json:"odontologo"`
 }
 
+type RequestUpdateTurnoSubject struct {
+	key string `query:"key"`
+	value string `query:"value"`
+}
