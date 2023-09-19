@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"log"
-	"time"
+	//"time"
 )
 
 type service struct {
@@ -121,7 +121,7 @@ func requestByPacienteToTurno(requestTurno RequestTurnoByPaciente) Turno {
 	var turno Turno
 	turno.Paciente = requestTurno.Paciente
 	turno.Odontologo = requestTurno.Odontologo
-	turno.FechaHora = time.Now()
+	turno.FechaHora = ""
 	turno.Descripcion = ""
 
 	return turno

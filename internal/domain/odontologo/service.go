@@ -28,9 +28,11 @@ func NewService(repository Repository) Service {
 // Create creates an odontologo
 func (s *service) Create(ctx context.Context, requestOdontologo RequestOdontologo) (Odontologo, error) {
 	odontologo := requestToOdontologo(requestOdontologo)
+	log.Println(odontologo)
 	response, err := s.repository.Create(ctx, odontologo)
 	if err != nil {
 		log.Println("Error en service Odontologo: Método Create")
+		log.Println(err)
 		return Odontologo{}, errors.New("Error en service Odontologo: Método Create")
 	}
 
@@ -63,7 +65,7 @@ func (s *service) Update(ctx context.Context, requestOdontologo RequestOdontolog
 
 // Update actualiza alguno de los campos de odontologo
 func (s *service) UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error) {
-
+	log.Println(request)
 	response, err := s.repository.UpdateSubject(ctx, id, request)
 	if err != nil {
 		log.Println("log de error en service de odontologo", err.Error())

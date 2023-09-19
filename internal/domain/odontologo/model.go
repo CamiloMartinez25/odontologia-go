@@ -14,6 +14,6 @@ type RequestOdontologo struct {
 }
 
 type RequestUpdateOdontologoSubject struct {
-	key string `query:"key"`
-	value string `query:"value"`
+	key string `form:"key"`
+	value string `form:"value"`
 }

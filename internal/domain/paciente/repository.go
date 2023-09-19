@@ -36,7 +36,7 @@ func NewRepositoryMySql(db *sql.DB) Repository {
 // Create crea un nuevo paciente.
 func (r *repository) Create(ctx context.Context, paciente Paciente) (Paciente, error) {
 
-	statement, err := r.db.Prepare(QueryInsertPaciete)
+	statement, err := r.db.Prepare(QueryInsertPaciente)
 
 	if err != nil {
 		return Paciente{}, ErrStatement
@@ -101,6 +101,7 @@ func (r *repository) Update(ctx context.Context, paciente Paciente) (Paciente, e
 		paciente.Domicilio,
 		paciente.DNI,
 		paciente.FechaAlta,
+		paciente.ID,
 	)
 
 	if err != nil {

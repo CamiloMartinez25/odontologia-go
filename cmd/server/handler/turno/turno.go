@@ -143,9 +143,9 @@ func (c *Controlador) Delete() gin.HandlerFunc {
 
 func (c *Controlador) GetByPacienteID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		id, err := strconv.Atoi(ctx.Param("id"))
+		id, err := strconv.Atoi(ctx.Param("dni"))
 		if err != nil {
-			web.Error(ctx, http.StatusBadRequest, "id invalido")
+			web.Error(ctx, http.StatusBadRequest, "dni invalido")
 			return
 		}
 

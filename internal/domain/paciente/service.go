@@ -30,6 +30,7 @@ func (s *service) Create(ctx context.Context, requestPaciente RequestPaciente) (
 	response, err := s.repository.Create(ctx, paciente)
 	if err != nil {
 		log.Println("Error en service Paciente: Método Create")
+		log.Println(err)
 		return Paciente{}, errors.New("Error en service Paciente: Método Create")
 	}
 

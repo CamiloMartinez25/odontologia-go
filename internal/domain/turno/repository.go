@@ -114,6 +114,7 @@ func (r *repository) Update(ctx context.Context, turno Turno) (Turno, error) {
 		turno.Odontologo,
 		turno.FechaHora,
 		turno.Descripcion,
+		turno.ID,
 	)
 
 	if err != nil {
@@ -224,5 +225,20 @@ func (r *repository) Delete(ctx context.Context, id int) error {
 }
 
 func (r *repository) GetByID(ctx context.Context, id int) (Turno, error) {
-	return Turno{}, nil
+	row := r.db.QueryRow(QueryGetTurnByID, id)
+
+	var turno Turno
+	err := row.Scan(
+		&turno.ID,
+		&turno.Paciente,
+		&turno.Odontologo,
+		&turno.FechaHora,
+		&turno.Descripcion,
+	)
+
+	if err != nil {
+		return Turno{}, err
+	}
+
+	return turno, nil
 }

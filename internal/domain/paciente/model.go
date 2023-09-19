@@ -1,6 +1,6 @@
 package paciente
 
-import "time"
+//import "time"
 
 type Paciente struct {
 	ID        int       `json:"id"`
@@ -8,7 +8,7 @@ type Paciente struct {
 	Apellido  string    `json:"apellido"`
 	Domicilio string    `json:"domicilio"`
 	DNI       int       `json:"dni"`
-	FechaAlta time.Time `json:"fecha_alta"`
+	FechaAlta string `json:"fecha_alta"`
 }
 
 type RequestPaciente struct {
@@ -16,7 +16,7 @@ type RequestPaciente struct {
 	Apellido  string    `json:"apellido"`
 	Domicilio string    `json:"domicilio"`
 	DNI       int       `json:"dni"`
-	FechaAlta time.Time `json:"fecha_alta"`
+	FechaAlta string `json:"fecha_alta"`
 }
 
 type RequestUpdatePacienteSubject struct {
