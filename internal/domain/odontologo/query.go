@@ -1,10 +1,10 @@
 package odontologo
 
 var (
-	QueryInsertOdontologo       = `INSERT INTO my_db.odontologos(nombre, apellido, matricula) VALUES(?,?,?)`
-	QueryGetAllOdontologos      = `SELECT id, nombre, apellido, matricula FROM my_db.odontologos`
-	QueryDeleteOdontologo       = `DELETE FROM my_db.odontologos WHERE id = ?`
-	QueryGetOdontologoById      = `SELECT id, nombre, apellido, matricula FROM my_db.odontologos WHERE id = ?`
-	QueryUpdateOdontologo       = `UPDATE my_db.odontologos SET nombre = ?, apellido = ?, matricula = ? WHERE id = ?`
-	QueryUpdateOdontologoNombre = `UPDATE my_db.odontologos SET `
+	QueryInsertOdontologo       = `INSERT INTO my_db.odontologos(Nombre, Apellido, Matricula) VALUES(?,?,?)`
+	QueryGetAllOdontologos      = `SELECT ID, Nombre, Apellido, Matricula FROM my_db.odontologos`
+	QueryDeleteOdontologo       = `DELETE FROM my_db.odontologos WHERE ID = ?`
+	QueryGetOdontologoById      = `SELECT ID, Nombre, Apellido, Matricula FROM my_db.odontologos WHERE ID = ?`
+	QueryUpdateOdontologo       = `UPDATE my_db.odontologos SET Nombre = ?, Apellido = ?, Matricula = ? WHERE ID = ?`
+	QueryUpdateOdontologoSubject = `UPDATE my_db.odontologos SET `
 )

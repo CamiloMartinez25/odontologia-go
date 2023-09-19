@@ -3,6 +3,15 @@ package paciente
 import (
 	"context"
 	"database/sql"
+	"errors"
+)
+
+var (
+	ErrEmptyList = errors.New("the list is empty")
+	ErrNotFound  = errors.New("paciente not found")
+	ErrStatement = errors.New("error preparing statement")
+	ErrExec      = errors.New("error exect statement")
+	ErrLastId    = errors.New("error getting last id")
 )
 
 type repository struct {
@@ -11,9 +20,8 @@ type repository struct {
 
 type Repository interface {
 	Create(ctx context.Context, paciente Paciente) (Paciente, error)
-	//GetAll(ctx context.Context) ([]Paciente, error)
 	GetByID(ctx context.Context, id int) (Paciente, error)
-	//Update(ctx context.Context, paciente Paciente) (Paciente, error)
+	Update(ctx context.Context, paciente Paciente) (Paciente, error)
 	Delete(ctx context.Context, id int) error
 	UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error)
 }
@@ -28,7 +36,7 @@ func NewRepositoryMySql(db *sql.DB) Repository {
 // Create crea un nuevo paciente.
 func (r *repository) Create(ctx context.Context, paciente Paciente) (Paciente, error) {
 
-	statement, err := r.db.Prepare(QueryInsertPaciete)
+	statement, err := r.db.Prepare(QueryInsertPaciente)
 
 	if err != nil {
 		return Paciente{}, ErrStatement
@@ -93,6 +101,7 @@ func (r *repository) Update(ctx context.Context, paciente Paciente) (Paciente, e
 		paciente.Domicilio,
 		paciente.DNI,
 		paciente.FechaAlta,
+		paciente.ID,
 	)
 
 	if err != nil {
@@ -112,7 +121,7 @@ func (r *repository) Update(ctx context.Context, paciente Paciente) (Paciente, e
 }
 
 func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error) {
-	statement, err := r.db.Prepare(QueryUpdateSubject + request.key + " = ? WHERE ID = ?")
+	statement, err := r.db.Prepare(QueryUpdateSubject + request.Key + " = ? WHERE ID = ?")
 	if err != nil {
 		return Paciente{}, err
 	}
@@ -120,7 +129,7 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 	defer statement.Close()
 
 	result, err := statement.Exec(
-		request.value,
+		request.Value,
 		id,
 	)
 
@@ -148,7 +157,7 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 func (r *repository) Delete(ctx context.Context, id int) error {
 	result, err := r.db.Exec(QueryDeletePaciente, id)
 	if err != nil {
-		return nil, err
+		return ErrExec
 	}
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {

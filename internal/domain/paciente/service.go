@@ -13,7 +13,7 @@ type service struct {
 type Service interface {
 	Create(ctx context.Context, requestPaciente RequestPaciente) (Paciente, error)
 	GetByID(ctx context.Context, id int) (Paciente, error)
-	//Update(ctx context.Context, requestPaciente RequestPaciente, id int) (Paciente, error)
+	Update(ctx context.Context, requestPaciente RequestPaciente, id int) (Paciente, error)
 	Delete(ctx context.Context, id int) error
 	UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error)
 }
@@ -30,6 +30,7 @@ func (s *service) Create(ctx context.Context, requestPaciente RequestPaciente) (
 	response, err := s.repository.Create(ctx, paciente)
 	if err != nil {
 		log.Println("Error en service Paciente: Método Create")
+		log.Println(err)
 		return Paciente{}, errors.New("Error en service Paciente: Método Create")
 	}
 

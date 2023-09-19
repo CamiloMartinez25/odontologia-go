@@ -1,14 +1,14 @@
 package paciente
 
 var (
-	QueryInsertPaciete = `INSERT INTO my_db.paciente(nombre, apellido, domicilio, dni, fecha_alta)
+	QueryInsertPaciente = `INSERT INTO my_db.paciente(Nombre, Apellido, Domicilio, DNI, Fecha_Alta)
 	VALUES(?,?,?,?,?)`
-	QueryGetAllPacientes = `SELECT id, nombre, apellido, domicilio, dni, fecha_alta 
+	QueryGetAllPacientes = `SELECT ID, Nombre, Apellido, Domicilio, DNI, Fecha_Alta 
 	FROM my_db.paciente`
-	QueryDeletePaciente  = `DELETE FROM my_db.paciente WHERE id = ?`
-	QueryGetPacienteById = `SELECT id, nombre, apellido, domicilio, dni, fecha_alta
-	FROM my_db.paciente WHERE id = ?`
-	QueryUpdatePaciente = `UPDATE my_db.paciente SET nombre = ?, apellido = ?, domicilio = ?, dni = ?, fecha_alta = ?
-	WHERE id = ?`
+	QueryDeletePaciente  = `DELETE FROM my_db.paciente WHERE ID = ?`
+	QueryGetPacienteById = `SELECT ID, Nombre, Apellido, Domicilio, DNI, Fecha_Alta
+	FROM my_db.paciente WHERE ID = ?`
+	QueryUpdatePaciente = `UPDATE my_db.paciente SET Nombre = ?, Apellido = ?, Domicilio = ?, DNI = ?, Fecha_Alta = ?
+	WHERE ID = ?`
 	QueryUpdateSubject = `UPDATE my_db.paciente SET `
 )

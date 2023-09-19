@@ -22,7 +22,7 @@ func Response(c *gin.Context, status int, data interface{}) {
 	c.JSON(status, data)
 }
 
-func Succses(c *gin.Context, status int, data interface{}) {
+func Success(c *gin.Context, status int, data interface{}) {
 	Response(c, status, response{Data: data})
 }
 
