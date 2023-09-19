@@ -41,5 +41,572 @@
                 }
             }
         }
+    },
+    "/odontologos": {
+        "get": {
+            "description": "Trae todos los odontologos",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "odontologo"
+            ],
+            "summary": "odontologo ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "post": {
+            "description": "Crea un nuevo odontologo",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "odontologo"
+            ],
+            "summary": "odontologo ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        }
+    },
+    "/odontologos/:id": {
+        "get": {
+            "description": "Get odontologo by id",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "odontologo"
+            ],
+            "summary": "odontologo ejemplo",
+            "parameters": [
+                {
+                    "type": "integer",
+                    "description": "id del odontologo",
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "put": {
+            "description": "Actualiza al odontologo por id",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "odontologo"
+            ],
+            "summary": "odontologo ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "delete": {
+            "description": "Borrar odontologo por id",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "odontologo"
+            ],
+            "summary": "odontologo ejemplo",
+            "parameters": [
+                {
+                    "type": "integer",
+                    "description": "id del odontologo",
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        }
+    },
+    "/pacientes": {
+        "get": {
+            "description": "Trae todos los pacientes",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "paciente"
+            ],
+            "summary": "paciente ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "post": {
+            "description": "Crea un nuevo paciente",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "paciente"
+            ],
+            "summary": "paciente ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        }
+    },
+    "/pacientes/:id": {
+        "get": {
+            "description": "Get pacientes by id",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "paciente"
+            ],
+            "summary": "paciente ejemplo",
+            "parameters": [
+                {
+                    "type": "integer",
+                    "description": "id del paciente",
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "put": {
+            "description": "Actualiza al paciente por id",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "paciente"
+            ],
+            "summary": "paciente ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "delete": {
+            "description": "Borrar paciente por id",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "paciente"
+            ],
+            "summary": "paciente ejemplo",
+            "parameters": [
+                {
+                    "type": "integer",
+                    "description": "id del paciente",
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        }
+    },
+    "/turnos": {
+        "get": {
+            "description": "Trae todos los turnos",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "turno"
+            ],
+            "summary": "turno ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "post": {
+            "description": "Crea un nuevo turno",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "turno"
+            ],
+            "summary": "turno ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        }
+    },
+    "/turnos/:id": {
+        "get": {
+            "description": "Get turnos by id",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "turno"
+            ],
+            "summary": "turno ejemplo",
+            "parameters": [
+                {
+                    "type": "integer",
+                    "description": "id del turno",
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "put": {
+            "description": "Actualiza al turno por id",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "turno"
+            ],
+            "summary": "turno ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "delete": {
+            "description": "Borrar turno por id",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "turno"
+            ],
+            "summary": "turno ejemplo",
+            "parameters": [
+                {
+                    "type": "integer",
+                    "description": "id del paciente",
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "web.errorResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.response": {
+            "type": "object",
+            "properties": {
+                "data": {}
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BasicAuth": {
+            "type": "basic"
+        }
     }
 }
