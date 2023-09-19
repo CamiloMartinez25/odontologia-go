@@ -43,33 +43,6 @@
         }
     },
     "/odontologos": {
-        "get": {
-            "description": "Trae todos los odontologos",
-            "consumes": [
-                "application/json"
-            ],
-            "produces": [
-                "application/json"
-            ],
-            "tags": [
-                "odontologo"
-            ],
-            "summary": "odontologo ejemplo",
-            "responses": {
-                "200": {
-                    "description": "OK",
-                    "schema": {
-                        "$ref": "#/definitions/web.response"
-                    }
-                },
-                "500": {
-                    "description": "Internal Server Error",
-                    "schema": {
-                        "$ref": "#/definitions/web.errorResponse"
-                    }
-                }
-            }
-        },
         "post": {
             "description": "Crea un nuevo odontologo",
             "consumes": [
@@ -106,7 +79,7 @@
     },
     "/odontologos/:id": {
         "get": {
-            "description": "Get odontologo by id",
+            "description": "Trae a un odontologo por su id",
             "consumes": [
                 "application/json"
             ],
@@ -148,7 +121,7 @@
             }
         },
         "put": {
-            "description": "Actualiza al odontologo por id",
+            "description": "Actualiza al odontologo completo",
             "consumes": [
                 "application/json"
             ],
@@ -159,6 +132,58 @@
                 "odontologo"
             ],
             "summary": "odontologo ejemplo",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
+        "patch": {
+            "description": "Actualiza parcialmente al odontologo",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "odontologo"
+            ],
+            "summary": "odontologo ejemplo",
+            "parameters": [
+                {
+                    "type": "integer",
+                    "description": "id del odontologo",
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "type": "object",
+                    "description": "Campos a actualizar",
+                    "name": "updateData",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/dentistUpdateData"
+                    }
+                }
+            ],
             "responses": {
                 "200": {
                     "description": "OK",
@@ -224,33 +249,6 @@
         }
     },
     "/pacientes": {
-        "get": {
-            "description": "Trae todos los pacientes",
-            "consumes": [
-                "application/json"
-            ],
-            "produces": [
-                "application/json"
-            ],
-            "tags": [
-                "paciente"
-            ],
-            "summary": "paciente ejemplo",
-            "responses": {
-                "200": {
-                    "description": "OK",
-                    "schema": {
-                        "$ref": "#/definitions/web.response"
-                    }
-                },
-                "500": {
-                    "description": "Internal Server Error",
-                    "schema": {
-                        "$ref": "#/definitions/web.errorResponse"
-                    }
-                }
-            }
-        },
         "post": {
             "description": "Crea un nuevo paciente",
             "consumes": [
@@ -287,7 +285,7 @@
     },
     "/pacientes/:id": {
         "get": {
-            "description": "Get pacientes by id",
+            "description": "Trae a un paciente por su id",
             "consumes": [
                 "application/json"
             ],
@@ -361,6 +359,58 @@
                 }
             }
         },
+        "patch": {
+            "description": "Actualiza parcialmente al paciente",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "paciente"
+            ],
+            "summary": "paciente ejemplo",
+            "parameters": [
+                {
+                    "type": "integer",
+                    "description": "ID del paciente",
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "type": "object",
+                    "description": "Campos a actualizar",
+                    "name": "updateData",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/dentistUpdateData"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
         "delete": {
             "description": "Borrar paciente por id",
             "consumes": [
@@ -405,33 +455,6 @@
         }
     },
     "/turnos": {
-        "get": {
-            "description": "Trae todos los turnos",
-            "consumes": [
-                "application/json"
-            ],
-            "produces": [
-                "application/json"
-            ],
-            "tags": [
-                "turno"
-            ],
-            "summary": "turno ejemplo",
-            "responses": {
-                "200": {
-                    "description": "OK",
-                    "schema": {
-                        "$ref": "#/definitions/web.response"
-                    }
-                },
-                "500": {
-                    "description": "Internal Server Error",
-                    "schema": {
-                        "$ref": "#/definitions/web.errorResponse"
-                    }
-                }
-            }
-        },
         "post": {
             "description": "Crea un nuevo turno",
             "consumes": [
@@ -542,6 +565,58 @@
                 }
             }
         },
+        "patch": {
+            "description": "Actualiza parcialmente al turno",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "turno"
+            ],
+            "summary": "turno ejemplo",
+            "parameters": [
+                {
+                    "type": "integer",
+                    "description": "id del turno",
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "type": "object",
+                    "description": "Campos a actualizar",
+                    "name": "updateData",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/dentistUpdateData"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/web.response"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "schema": {
+                        "$ref": "#/definitions/web.errorResponse"
+                    }
+                }
+            }
+        },
         "delete": {
             "description": "Borrar turno por id",
             "consumes": [
@@ -583,7 +658,107 @@
                     }
                 }
             }
-        }
+        },
+        "/turnos/{dni}": {
+            "post": {
+                "description": "Crea un nuevo turno para un paciente",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "turno"
+                ],
+                "summary": "turno ejemplo",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "DNI del paciente",
+                        "name": "dni",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "object",
+                        "description": "Campos del turno",
+                        "name": "appointmentData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appointmentData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.errorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.errorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/turnos/dni/{dni}": {
+            "get": {
+                "description": "Busca un turno por el dni del paciente",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "turno"
+                ],
+                "summary": "turno ejemplo",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "DNI del paciente",
+                        "name": "dni",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/appointmentData"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/web.errorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.errorResponse"
+                        }
+                    }
+                }
+            }
     },
     "definitions": {
         "web.errorResponse": {
@@ -609,4 +784,5 @@
             "type": "basic"
         }
     }
+}
 }
