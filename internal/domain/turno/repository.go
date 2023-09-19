@@ -3,6 +3,15 @@ package turno
 import (
 	"context"
 	"database/sql"
+	"errors"
+)
+
+var (
+	ErrEmptyList = errors.New("the list is empty")
+	ErrNotFound  = errors.New("turno not found")
+	ErrStatement = errors.New("error preparing statement")
+	ErrExec      = errors.New("error exect statement")
+	ErrLastId    = errors.New("error getting last id")
 )
 
 type repository struct {
@@ -10,13 +19,12 @@ type repository struct {
 }
 type Repository interface {
 	Create(ctx context.Context, turno Turno) (Turno, error)
-	GetAll(ctx context.Context) ([]Turno, error)
-	//GetByID(ctx context.Context, id int) (Turno, error)
-	GetByPacienteID(ctx context.Context, id int) (Turno, error)
+	//GetAll(ctx context.Context) ([]Turno, error)
+	GetByID(ctx context.Context, id int) (Turno, error)
+	GetByPacienteID(ctx context.Context, id int) ([]Turno, error)
 	Update(ctx context.Context, turno Turno) (Turno, error)
-	UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Odontologo, error)
+	UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Turno, error)
 	Delete(ctx context.Context, id int) error
-
 }
 
 // TurnoRepository creates a new repository.
@@ -26,7 +34,7 @@ func TurnoRepository(db *sql.DB) Repository {
 	}
 }
 
-//Create crea un turno 
+// Create crea un turno
 func (r *repository) Create(ctx context.Context, turno Turno) (Turno, error) {
 
 	statement, err := r.db.Prepare(QueryInsertTurn)
@@ -41,7 +49,7 @@ func (r *repository) Create(ctx context.Context, turno Turno) (Turno, error) {
 		turno.Paciente,
 		turno.Odontologo,
 		turno.FechaHora,
-		turno.Descripcion
+		turno.Descripcion,
 	)
 
 	if err != nil {
@@ -59,38 +67,38 @@ func (r *repository) Create(ctx context.Context, turno Turno) (Turno, error) {
 }
 
 // GetAll returns all turnos.
-func (r *repository) GetAll(ctx context.Context) ([]Turno, error) {
-	rows, err := r.db.Query(QueryGetAllTurnos)
-	if err != nil {
-		return []Turno{}, err
-	}
+// func (r *repository) GetAll(ctx context.Context) ([]Turno, error) {
+// 	rows, err := r.db.Query(QueryGetAllTurnos)
+// 	if err != nil {
+// 		return []Turno{}, err
+// 	}
 
-	defer rows.Close()
+// 	defer rows.Close()
 
-	var turnos []Turno
+// 	var turnos []Turno
 
-	for rows.Next() {
-		var turno Turno
-		err := rows.Scan(
-			&turno.ID,
-			&turno.Paciente,
-			&turno.Odontologo,
-			&turno.FechaHora,
-			&turno.Descripcion,
-		)
-		if err != nil {
-			return []Turno{}, err
-		}
+// 	for rows.Next() {
+// 		var turno Turno
+// 		err := rows.Scan(
+// 			&turno.ID,
+// 			&turno.Paciente,
+// 			&turno.Odontologo,
+// 			&turno.FechaHora,
+// 			&turno.Descripcion,
+// 		)
+// 		if err != nil {
+// 			return []Turno{}, err
+// 		}
 
-		turnos = append(turnos, turno)
-	}
+// 		turnos = append(turnos, turno)
+// 	}
 
-	if err := rows.Err(); err != nil {
-		return []Turno{}, err
-	}
+// 	if err := rows.Err(); err != nil {
+// 		return []Turno{}, err
+// 	}
 
-	return turnos, nil
-}
+// 	return turnos, nil
+// }
 
 // Update updates an turno.
 func (r *repository) Update(ctx context.Context, turno Turno) (Turno, error) {
@@ -195,7 +203,7 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 	return turnoActualizado, nil
 }
 
-// Delete elimina el turno 
+// Delete elimina el turno
 func (r *repository) Delete(ctx context.Context, id int) error {
 	result, err := r.db.Exec(QueryDeleteTurn, id)
 	if err != nil {
@@ -213,4 +221,8 @@ func (r *repository) Delete(ctx context.Context, id int) error {
 
 	return nil
 
+}
+
+func (r *repository) GetByID(ctx context.Context, id int) (Turno, error) {
+	return Turno{}, nil
 }

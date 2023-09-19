@@ -19,6 +19,41 @@ func NewControladorOdontologo(service odontologo.Service) *Controlador {
 	}
 }
 
+// odontologo godoc
+// @Summary odontologo.Odontologo example
+// @Description Create a new odontologo.Odontologo
+// @Tags odontologo.Odontologo
+// @Accept json
+// @Produce json
+// @Success 200 {object} web.response
+// @Failure 400 {object} web.errorResponse
+// @Failure 500 {object} web.errorResponse
+// @Router /odontologos [post]
+func (c *Controlador) Create() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+		var request odontologo.RequestOdontologo
+
+		err := ctx.Bind(&request)
+
+		if err != nil {
+			web.Error(ctx, http.StatusBadRequest, "%s", "bad request")
+			return
+		}
+
+		odonto, err := c.service.Create(ctx, request)
+		if err != nil {
+			web.Error(ctx, http.StatusInternalServerError, "%s", "internal server error")
+			return
+		}
+
+		web.Success(ctx, http.StatusOK, gin.H{
+			"data": odonto,
+		})
+
+	}
+}
+
 // Odontologo godoc
 // @Summary odontologo example
 // @Description Get odontologo by id
@@ -38,7 +73,7 @@ func (c *Controlador) GetByID() gin.HandlerFunc {
 			return
 		}
 
-		product, err := c.service.GetByID(ctx, id)
+		odonto, err := c.service.GetByID(ctx, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "%s", "internal server error")
 			return
@@ -127,7 +162,7 @@ func (c *Controlador) UpdateSubject() gin.HandlerFunc {
 			return
 		}
 
-		web.Succses(ctx, http.StatusOK, gin.H{
+		web.Success(ctx, http.StatusOK, gin.H{
 			"data": odonto,
 		})
 
