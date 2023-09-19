@@ -14,7 +14,7 @@ func Authenticate() gin.HandlerFunc {
 
 		if tokenHandler != token {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"message": "Usuario invalido",
+				"message": "Usuario inválido",
 			})
 			return
 		} else {
