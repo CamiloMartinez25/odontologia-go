@@ -3,6 +3,15 @@ package paciente
 import (
 	"context"
 	"database/sql"
+	"errors"
+)
+
+var (
+	ErrEmptyList = errors.New("the list is empty")
+	ErrNotFound  = errors.New("paciente not found")
+	ErrStatement = errors.New("error preparing statement")
+	ErrExec      = errors.New("error exect statement")
+	ErrLastId    = errors.New("error getting last id")
 )
 
 type repository struct {
@@ -11,9 +20,8 @@ type repository struct {
 
 type Repository interface {
 	Create(ctx context.Context, paciente Paciente) (Paciente, error)
-	//GetAll(ctx context.Context) ([]Paciente, error)
 	GetByID(ctx context.Context, id int) (Paciente, error)
-	//Update(ctx context.Context, paciente Paciente) (Paciente, error)
+	Update(ctx context.Context, paciente Paciente) (Paciente, error)
 	Delete(ctx context.Context, id int) error
 	UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error)
 }
@@ -148,7 +156,7 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 func (r *repository) Delete(ctx context.Context, id int) error {
 	result, err := r.db.Exec(QueryDeletePaciente, id)
 	if err != nil {
-		return nil, err
+		return ErrExec
 	}
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {

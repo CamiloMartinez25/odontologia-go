@@ -4,10 +4,7 @@ import (
 	"context"
 	"errors"
 	"log"
-)
-
-var (
-	ErrEmptyList = errors.New("the list is empty")
+	"time"
 )
 
 type service struct {
@@ -15,9 +12,9 @@ type service struct {
 }
 
 type Service interface {
-	Create(ctx context.Context, RequestTurno turno) (Turno, error)
-	//CreateByPaciente(ctx context.Context, RequestTurnoByPaciente turno) (Turno, error)
-	//GetByID(ctx context.Context, id int) (Turno, error)
+	Create(ctx context.Context, turno RequestTurno) (Turno, error)
+	CreateByPaciente(ctx context.Context, turno RequestTurnoByPaciente) (Turno, error)
+	GetByID(ctx context.Context, id int) (Turno, error)
 	GetByPacienteID(ctx context.Context, id int) ([]Turno, error)
 	Update(ctx context.Context, requestTurno RequestTurno, id int) (Turno, error)
 	UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Turno, error)
@@ -41,6 +38,27 @@ func (s *service) Create(ctx context.Context, requestTurno RequestTurno) (Turno,
 	}
 
 	return response, nil
+}
+
+func (s *service) CreateByPaciente(ctx context.Context, requestTurno RequestTurnoByPaciente) (Turno, error) {
+	turno := requestByPacienteToTurno(requestTurno)
+	response, err := s.repository.Create(ctx, turno)
+	if err != nil {
+		log.Println("Error en service Turno: Método Create By Paciente")
+		return Turno{}, errors.New("Error en service Turno: Método Create By Paciente")
+	}
+
+	return response, nil
+}
+
+func (s *service) GetByID(ctx context.Context, id int) (Turno, error) {
+	turno, err := s.repository.GetByID(ctx, id)
+	if err != nil {
+		log.Println("log de error en service de turno", err.Error())
+		return Turno{}, errors.New("error en servicio. Metodo GetByID")
+	}
+
+	return turno, nil
 }
 
 // Update updates an turno.
@@ -95,6 +113,16 @@ func requestToTurno(requestTurno RequestTurno) Turno {
 	turno.Odontologo = requestTurno.Odontologo
 	turno.FechaHora = requestTurno.FechaHora
 	turno.Descripcion = requestTurno.Descripcion
+
+	return turno
+}
+
+func requestByPacienteToTurno(requestTurno RequestTurnoByPaciente) Turno {
+	var turno Turno
+	turno.Paciente = requestTurno.Paciente
+	turno.Odontologo = requestTurno.Odontologo
+	turno.FechaHora = time.Now()
+	turno.Descripcion = ""
 
 	return turno
 }

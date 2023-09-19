@@ -187,13 +187,13 @@ func (c *Controlador) UpdateSubject() gin.HandlerFunc {
 			return
 		}
 
-		pacie, err := c.service.UpdateSubjet(ctx, idInt, request)
+		pacie, err := c.service.UpdateSubject(ctx, idInt, request)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "%s", "internal server error")
 			return
 		}
 
-		web.Succses(ctx, http.StatusOK, gin.H{
+		web.Success(ctx, http.StatusOK, gin.H{
 			"data": pacie,
 		})
 

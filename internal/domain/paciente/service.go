@@ -13,7 +13,7 @@ type service struct {
 type Service interface {
 	Create(ctx context.Context, requestPaciente RequestPaciente) (Paciente, error)
 	GetByID(ctx context.Context, id int) (Paciente, error)
-	//Update(ctx context.Context, requestPaciente RequestPaciente, id int) (Paciente, error)
+	Update(ctx context.Context, requestPaciente RequestPaciente, id int) (Paciente, error)
 	Delete(ctx context.Context, id int) error
 	UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error)
 }

@@ -5,7 +5,6 @@ import (
 
 	"github.com/CamiloMartinez25/odontologia-go/core/middleware"
 
-	//"github.com/aldogayaladh/go-web/cmd/server/handler/ping"
 	handlerOdontologo "github.com/CamiloMartinez25/odontologia-go/cmd/server/handler/odontologo"
 	handlerPaciente "github.com/CamiloMartinez25/odontologia-go/cmd/server/handler/paciente"
 	handlerTurno "github.com/CamiloMartinez25/odontologia-go/cmd/server/handler/turno"
@@ -42,7 +41,6 @@ func (r *router) MapRoutes() {
 	r.buildOdontologoRoutes()
 	r.buildPacienteRoutes()
 	r.buildTurnoRoutes()
-	r.buildPingRoutes()
 }
 
 // setGroup sets the router group.
@@ -81,26 +79,17 @@ func (r *router) buildPacienteRoutes() {
 }
 
 // buildTurnoRoutes maps all routes for the turno domain.
-func (r *router) buildPacienteRoutes() {
+func (r *router) buildTurnoRoutes() {
 	// Create a new turno controller.
-	repository := turno.NewRepositoryMySql(r.db)
-	service := turno.NewService(repository)
+	repository := turno.TurnoRepository(r.db)
+	service := turno.TurnoService(repository)
 	controlador := handlerTurno.NewControladorTurno(service)
 
 	r.routerGroup.POST("/turnos", middleware.Authenticate(), controlador.Create())
-	//r.routerGroup.GET("/turnos/:id", middleware.Authenticate(), controlador.GetByID()) Falta
+	r.routerGroup.GET("/turnos/dni/:dni", middleware.Authenticate(), controlador.GetByPacienteID())
+	r.routerGroup.GET("/turnos/:id", middleware.Authenticate(), controlador.GetByID())
 	r.routerGroup.PUT("/turnos/:id", middleware.Authenticate(), controlador.Update())
 	r.routerGroup.PATCH("/turnos/:id", middleware.Authenticate(), controlador.UpdateSubject())
 	r.routerGroup.DELETE("/turnos/:id", middleware.Authenticate(), controlador.Delete())
-	r.routerGroup.GET("/turnos/:dni", middleware.Authenticate(), controlador.GetByPacienteID())
-	// Falta en el service crear CreateByPaciente y CreateByOdontologo o combinados.
-
-}
-
-// buildPingRoutes maps all routes for the ping domain.
-func (r *router) buildPingRoutes() {
-	// Create a new ping controller.
-	pingController := ping.NewControladorPing()
-	r.routerGroup.GET("/ping", pingController.Ping())
-
+	r.routerGroup.POST("/turnos/paciente", middleware.Authenticate(), controlador.CreateByPaciente())
 }

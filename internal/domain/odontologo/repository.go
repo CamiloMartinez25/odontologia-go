@@ -7,12 +7,15 @@ import (
 )
 
 var (
-	ErrNotFound = errors.New("odontologo not found")
+	ErrNotFound  = errors.New("odontologo not found")
+	ErrEmptyList = errors.New("the list is empty")
+	ErrStatement = errors.New("error preparing statement")
+	ErrExec      = errors.New("error exect statement")
+	ErrLastId    = errors.New("error getting last id")
 )
 
 type Repository interface {
 	Create(ctx context.Context, odontologo Odontologo) (Odontologo, error)
-	//GetAll(ctx context.Context) ([]Odontologo, error)
 	GetByID(ctx context.Context, id int) (Odontologo, error)
 	Update(ctx context.Context, odontologo Odontologo) (Odontologo, error)
 	Delete(ctx context.Context, id int) error
@@ -67,10 +70,9 @@ func (r *repository) GetByID(ctx context.Context, id int) (Odontologo, error) {
 	var odontologo Odontologo
 	err := row.Scan(
 		&odontologo.ID,
-		&odontologo.Name,
-		&odontologo.Apellido
-		&odontologo.Matricula
-	
+		&odontologo.Nombre,
+		&odontologo.Apellido,
+		&odontologo.Matricula,
 	)
 
 	if err != nil {
@@ -111,7 +113,6 @@ func (r *repository) Update(ctx context.Context, odontologo Odontologo) (Odontol
 
 	return odontologo, nil
 }
-
 
 // Update actualiza alguno de los campos de odontologo
 func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error) {

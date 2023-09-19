@@ -44,18 +44,28 @@ func (c *Controlador) Create() gin.HandlerFunc {
 	}
 }
 
-func (c *Controlador) GetAll() gin.HandlerFunc {
+func (c *Controlador) CreateByPaciente() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		turnos, err := c.service.GetAll(ctx)
 
+		var request turno.RequestTurnoByPaciente
+
+		err := ctx.Bind(&request)
+
+		if err != nil {
+			web.Error(ctx, http.StatusBadRequest, "%s", "bad request")
+			return
+		}
+
+		turn, err := c.service.CreateByPaciente(ctx, request)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "%s", "internal server error")
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, gin.H{
-			"data": turnos,
+			"data": turn,
 		})
+
 	}
 }
 
@@ -145,7 +155,7 @@ func (c *Controlador) GetByPacienteID() gin.HandlerFunc {
 			return
 		}
 
-		web.Succes(ctx, http.StatusOK, gin.H{
+		web.Success(ctx, http.StatusOK, gin.H{
 			"data": turnos,
 		})
 	}
@@ -184,7 +194,7 @@ func (c *Controlador) UpdateSubject() gin.HandlerFunc {
 			return
 		}
 
-		web.Succses(ctx, http.StatusOK, gin.H{
+		web.Success(ctx, http.StatusOK, gin.H{
 			"data": turn,
 		})
 

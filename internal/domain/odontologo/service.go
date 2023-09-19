@@ -12,11 +12,10 @@ type service struct {
 
 type Service interface {
 	Create(ctx context.Context, requestOdontologo RequestOdontologo) (Odontologo, error)
-	//GetAll(ctx context.Context) ([]Odontologo, error)
 	GetByID(ctx context.Context, id int) (Odontologo, error)
 	Update(ctx context.Context, requestOdontologo RequestOdontologo, id int) (Odontologo, error)
 	Delete(ctx context.Context, id int) error
-	UpdateName(ctx context.Context, id int, nombreNuevo string) (Odontologo, error)
+	UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error)
 }
 
 // NewService creates a new odontologo service.
@@ -48,7 +47,6 @@ func (s *service) GetByID(ctx context.Context, id int) (Odontologo, error) {
 
 	return odontologo, nil
 }
-
 
 // Update updates an odontologo.
 func (s *service) Update(ctx context.Context, requestOdontologo RequestOdontologo, id int) (Odontologo, error) {
