@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"log"
 )
 
 var (
@@ -118,9 +117,7 @@ func (r *repository) Update(ctx context.Context, odontologo Odontologo) (Odontol
 // Update actualiza alguno de los campos de odontologo
 func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdateOdontologoSubject) (Odontologo, error) {
 
-	var query string = QueryUpdateOdontologoSubject + request.key + " = ? WHERE ID = ?"
-
-	log.Println(query)
+	var query string = QueryUpdateOdontologoSubject + request.Key + " = ? WHERE ID = ?"
 
 	statement, err := r.db.Prepare(query)
 	if err != nil {
@@ -130,7 +127,7 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 	defer statement.Close()
 
 	result, err := statement.Exec(
-		request.value,
+		request.Value,
 		id,
 	)
 

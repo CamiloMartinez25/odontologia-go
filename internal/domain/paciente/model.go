@@ -20,6 +20,6 @@ type RequestPaciente struct {
 }
 
 type RequestUpdatePacienteSubject struct {
-	key   string `query:"key"`
-	value string `query:"value"`
+	Key string `form:"key" json:"key"`
+	Value string `form:"value" json:"value"`
 }

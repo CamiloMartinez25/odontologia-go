@@ -143,6 +143,7 @@ func (c *Controlador) UpdateSubject() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
 		var request odontologo.RequestUpdateOdontologoSubject
+
 		errBind := ctx.Bind(&request)
 		if errBind != nil {
 			web.Error(ctx, http.StatusBadRequest, "%s", "bad request")

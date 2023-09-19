@@ -121,7 +121,7 @@ func (r *repository) Update(ctx context.Context, paciente Paciente) (Paciente, e
 }
 
 func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdatePacienteSubject) (Paciente, error) {
-	statement, err := r.db.Prepare(QueryUpdateSubject + request.key + " = ? WHERE ID = ?")
+	statement, err := r.db.Prepare(QueryUpdateSubject + request.Key + " = ? WHERE ID = ?")
 	if err != nil {
 		return Paciente{}, err
 	}
@@ -129,7 +129,7 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 	defer statement.Close()
 
 	result, err := statement.Exec(
-		request.value,
+		request.Value,
 		id,
 	)
 

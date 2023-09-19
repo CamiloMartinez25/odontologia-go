@@ -171,7 +171,7 @@ func (r *repository) GetByPacienteID(ctx context.Context, id int) ([]Turno, erro
 // Update actualiza algún campo del turno
 func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestUpdateTurnoSubject) (Turno, error) {
 
-	statement, err := r.db.Prepare(QueryUpdateTurnoSubject + request.key + " = ? WHERE ID = ?")
+	statement, err := r.db.Prepare(QueryUpdateTurnoSubject + request.Key + " = ? WHERE ID = ?")
 	if err != nil {
 		return Turno{}, err
 	}
@@ -179,7 +179,7 @@ func (r *repository) UpdateSubject(ctx context.Context, id int, request RequestU
 	defer statement.Close()
 
 	result, err := statement.Exec(
-		request.value,
+		request.Value,
 		id,
 	)
 
