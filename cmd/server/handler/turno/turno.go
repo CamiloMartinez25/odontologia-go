@@ -19,6 +19,17 @@ func NewControladorTurno(service turno.Service) *Controlador {
 	}
 }
 
+// turno godoc
+// @Summary turno example
+// @Description create a turno
+// @Tags turno
+// @Accept json
+// @Produce json
+// @body {object} turno.RequestTurno
+// @Success 200 {object} web.response
+// @Failure 400 {object} web.errorResponse
+// @Failure 500 {object} web.errorResponse
+// @Router /turnos [post]
 func (c *Controlador) Create() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -44,6 +55,17 @@ func (c *Controlador) Create() gin.HandlerFunc {
 	}
 }
 
+// turno godoc
+// @Summary turno example
+// @Description Create a turno with DNI of Paciente and Matricula of Odontologo
+// @Tags turno
+// @Accept json
+// @Produce json
+// @body {object} turno.RequestTurnoByPaciente
+// @Success 200 {object} web.response
+// @Failure 400 {object} web.errorResponse
+// @Failure 500 {object} web.errorResponse
+// @Router /turnoByPaciente [post]
 func (c *Controlador) CreateByPaciente() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -69,6 +91,16 @@ func (c *Controlador) CreateByPaciente() gin.HandlerFunc {
 	}
 }
 
+// turno godoc
+// @Summary turno example
+// @Description Get a turno by id
+// @Tags turno
+// @Accept json
+// @Produce json
+// @Success 200 {object} web.response
+// @Failure 400 {object} web.errorResponse
+// @Failure 500 {object} web.errorResponse
+// @Router /turnos/:id [get]
 func (c *Controlador) GetByID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id, err := strconv.Atoi(ctx.Param("id"))
@@ -88,6 +120,17 @@ func (c *Controlador) GetByID() gin.HandlerFunc {
 		})
 	}
 }
+
+// turno godoc
+// @Summary turno example
+// @Description Update a turno
+// @Tags turno
+// @Accept json
+// @Produce json
+// @Success 200 {object} web.response
+// @Failure 400 {object} web.errorResponse
+// @Failure 500 {object} web.errorResponse
+// @Router /turnos/:id [put]
 func (c *Controlador) Update() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -121,6 +164,17 @@ func (c *Controlador) Update() gin.HandlerFunc {
 
 	}
 }
+
+// turno godoc
+// @Summary turno example
+// @Description Delete a turno by id
+// @Tags turno
+// @Accept json
+// @Produce json
+// @Success 200 {object} web.response
+// @Failure 400 {object} web.errorResponse
+// @Failure 500 {object} web.errorResponse
+// @Router /turnos/:id [delete]
 func (c *Controlador) Delete() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id, err := strconv.Atoi(ctx.Param("id"))
@@ -141,6 +195,16 @@ func (c *Controlador) Delete() gin.HandlerFunc {
 	}
 }
 
+// turno godoc
+// @Summary turno example
+// @Description Get a turno by DNI of paciente
+// @Tags turno
+// @Accept json
+// @Produce json
+// @Success 200 {object} web.response
+// @Failure 400 {object} web.errorResponse
+// @Failure 500 {object} web.errorResponse
+// @Router /turnos/dni/:dni [get]
 func (c *Controlador) GetByPacienteID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id, err := strconv.Atoi(ctx.Param("dni"))

@@ -19,10 +19,10 @@ func NewControladorOdontologo(service odontologo.Service) *Controlador {
 	}
 }
 
-// odontologo godoc
-// @Summary odontologo.Odontologo example
-// @Description Create a new odontologo.Odontologo
-// @Tags odontologo.Odontologo
+// Odontologo godoc
+// @Summary Odontologo example
+// @Description Create a new Odontologo
+// @Tags Odontologo
 // @Accept json
 // @Produce json
 // @Success 200 {object} web.response
@@ -55,9 +55,9 @@ func (c *Controlador) Create() gin.HandlerFunc {
 }
 
 // Odontologo godoc
-// @Summary odontologo example
+// @Summary Odontologo example
 // @Description Get odontologo by id
-// @Tags odontologo
+// @Tags Odontologo
 // @Param id path int true "id del odontologo"
 // @Accept json
 // @Produce json
@@ -132,7 +132,7 @@ func (c *Controlador) Update() gin.HandlerFunc {
 // Odontologo godoc
 // @Summary odontologo example
 // @Description UpdateName odontologo
-// @Tags odontologo
+// @Tags Odontologo
 // @Accept json
 // @Produce json
 // @Success 200 {object} web.response
@@ -143,7 +143,6 @@ func (c *Controlador) UpdateSubject() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
 		var request odontologo.RequestUpdateOdontologoSubject
-
 		errBind := ctx.Bind(&request)
 		if errBind != nil {
 			web.Error(ctx, http.StatusBadRequest, "%s", "bad request")
@@ -173,7 +172,7 @@ func (c *Controlador) UpdateSubject() gin.HandlerFunc {
 // Odontologo godoc
 // @Summary odontologo example
 // @Description Delete odontologo by id
-// @Tags odontolog
+// @Tags Odontologo
 // @Param id path int true "id del odontologo"
 // @Accept json
 // @Produce json

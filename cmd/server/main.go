@@ -15,7 +15,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	_ "github.com/CamiloMartinez25/odontologia-go/docs"
+	_ "github.com/CamiloMartinez25/odontologia-go/cmd/server/docs"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -24,9 +24,9 @@ const (
 	puerto = ":9090"
 )
 
-// @title           Swagger Example API
+// @title           Clinica Odontologia Grupo 4.
 // @version         1.0
-// @description     This is a sample server celler server.
+// @description     This is a sample of odontologia.
 // @termsOfService  http://swagger.io/terms/
 
 // @contact.name   API Support
@@ -39,7 +39,7 @@ const (
 // @host      localhost:9090
 // @BasePath  /api/v1
 
-// @securityDefinitions.basic  BasicAuth
+// @securityDefinitions.apiKey  ApiKeyAuth
 
 // @externalDocs.description  OpenAPI
 // @externalDocs.url          https://swagger.io/resources/open-api/
